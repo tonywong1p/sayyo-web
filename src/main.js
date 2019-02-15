@@ -8,6 +8,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import {VueMasonryPlugin} from 'vue-masonry'
+Vue.use(VueMasonryPlugin)
+
+import VueYoutube from 'vue-youtube'
+Vue.use(VueYoutube)
+
 require('dotenv').config()
 
 Vue.config.productionTip = false

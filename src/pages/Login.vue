@@ -6,7 +6,7 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field type="email" :rules="rules.email" placeholder="Email" solo v-model="user.email" required></v-text-field>
           <v-text-field type="password" :rules="rules.password" placeholder="Password" solo v-model="user.password" required></v-text-field>
-          <v-btn type="submit" block round color="orange" dark @click="validate">Let's Say Yo!</v-btn>
+          <v-btn block round color="orange" dark @click="validate">Let's Say Yo!</v-btn>
         </v-form>
         <h1 class="title my-3">OR</h1>
         <v-btn block round color="blue" dark>SayYo with Facebook</v-btn>
