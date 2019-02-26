@@ -20,9 +20,9 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-layout row align-center>
-              <v-avatar class="mr-2" :size="40" :style="{'background-color':colors[((user.fullname || user.email).charCodeAt(0)+(user.fullname || user.email).charCodeAt((user.fullname || user.email).length-1))%colors.length]}">
+              <v-avatar class="mr-2" :size="40" :style="{'background-color':colors[((post.creator.email).charCodeAt(0)+(post.creator.email).charCodeAt((post.creator.email).length-1))%colors.length]}">
                 <img v-if="user.imageUrl" src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="Avatar">
-                <span v-else class="white--text headline">{{(user.fullname[0] || user.email[0]).toUpperCase()}}</span>
+                <span v-else class="white--text headline">{{(post.creator.email[0]).toUpperCase()}}</span>
               </v-avatar>
               <v-layout column>
                 <h1 class="caption">{{post.creator.fullname || post.creator.email}}</h1>

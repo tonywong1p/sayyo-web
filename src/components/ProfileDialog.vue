@@ -4,7 +4,7 @@
       <v-btn flat slot="activator" style="height:100%">
         <v-avatar class="mr-2" :size="40" :style="{'background-color':colors[((user.fullname || user.email).charCodeAt(0)+(user.fullname || user.email).charCodeAt((user.fullname || user.email).length-1))%colors.length]}">
           <img v-if="user.imageUrl" src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="Avatar">
-          <span v-else class="white--text headline">{{(user.fullname[0] || user.email[0]).toUpperCase()}}</span>
+          <span v-else class="white--text headline">{{(user.email[0]).toUpperCase()}}</span>
         </v-avatar> {{user.fullname || user.email}}
       </v-btn>
       <v-card>
@@ -18,7 +18,7 @@
           <v-layout column align-center>
             <v-avatar class="mb-3" :size="120" :style="{'background-color':colors[((user.fullname || user.email).charCodeAt(0)+(user.fullname || user.email).charCodeAt((user.fullname || user.email).length-1))%colors.length]}">
               <img v-if="user.imageUrl" src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" alt="Avatar">
-              <span v-else class="white--text display-2">{{(user.fullname[0] || user.email[0]).toUpperCase()}}</span>
+              <span v-else class="white--text display-2">{{(user.email[0]).toUpperCase()}}</span>
             </v-avatar>
             <v-layout align-center v-if="!editingFullname">
               <span class="display-1" :class="{'grey--text text--lighten-1':!user.fullname}">{{user.fullname || 'Unname'}}</span>
@@ -38,6 +38,9 @@
             </div>
           </v-layout>
         </v-card-title>
+        <v-card-text>
+          {{posts}}
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -50,6 +53,7 @@
     },
     data() {
       return ({
+        posts: [],
         colors: ['#C62828', '#FFA000', '#283593', '#304FFE', '#0097A7', '#00C853', '#7CB342'],
         dialog: false,
         fullname: '',
@@ -80,10 +84,27 @@
             // eslint-disable-next-line
             console.log(err);
           })
-      }
+      },
+      fetchPosts() {
+        let self = this;
+        const api = `${process.env.VUE_APP_API_URL}/posts`;
+        self.axios.get(api, {
+            params: {
+              user: self.user._id
+            }
+          })
+          .then((res) => {
+            self.posts = res.data;
+          })
+          .catch(err => {
+            // eslint-disable-next-line
+            console.log(err);
+          })
+      },
     },
     mounted() {
-      this.fullname = this.user.fullname || 'Unname'
+      this.fullname = this.user.fullname || 'Unname';
+      this.fetchPosts();
     }
   }
 </script>
